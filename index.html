@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Roots &amp; Roads — Walk in My Shoes</title>
+<meta name="description" content="A live role-play game on human rights, inclusion and the integration of Roma, migrant and refugee youth.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--pink:#EC4B8C;--teal:#3FC3BD;--teal-d:#2BA9A3;--yellow:#F6D34B;--indigo:#5A5CE0;--indigo-d:#4547c4;--navy:#242a63;--ink:#2c2e4a;--muted:#6b6f8c;--mint:#CFF0EE;--line:#d7efee;--eu:#003399;--gold:#FFCC00;--fh:'Fredoka',system-ui,sans-serif;--fb:'Nunito',system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--fb);color:var(--ink);background:#fff;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:34px 34px;min-height:100vh}
+h1,h2,h3,.fh{font-family:var(--fh);color:var(--navy);margin:0}
+.wrap{max-width:980px;margin:0 auto;padding:18px 18px 60px}
+.topbar{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:2px solid var(--mint);background:rgba(255,255,255,.9);position:sticky;top:0;z-index:20;flex-wrap:wrap}
+.brand{font-family:var(--fh);font-weight:700;font-size:20px;background:linear-gradient(90deg,var(--indigo),var(--pink));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.brand b{-webkit-text-fill-color:var(--yellow)}
+.codechip{margin-left:auto;font-family:var(--fh);font-weight:700;background:var(--navy);color:#fff;padding:6px 14px;border-radius:30px;letter-spacing:3px}
+.hidden{display:none!important}
+.card{background:#fff;border:2px solid var(--mint);border-radius:22px;padding:26px;box-shadow:0 18px 40px -26px rgba(90,92,224,.5)}
+.center{text-align:center}
+.lead{color:var(--muted);font-size:17px}
+.btn{font-family:var(--fh);font-weight:600;font-size:17px;border:none;border-radius:30px;padding:13px 24px;cursor:pointer;color:#fff;background:var(--indigo);transition:transform .15s,filter .15s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.05)}
+.btn.pink{background:var(--pink)}.btn.teal{background:var(--teal-d)}.btn.yellow{background:var(--yellow);color:#6b5200}.btn.ghost{background:#fff;color:var(--indigo);border:2px solid var(--indigo)}.btn.red{background:#e23b3b}.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.big-choices{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.choice-tile{border-radius:22px;padding:30px 22px;color:#fff;font-family:var(--fh);font-weight:600;font-size:20px;cursor:pointer;border:none;transition:transform .15s}
+.choice-tile:hover{transform:translateY(-3px)}
+.choice-tile .emoji{font-size:40px;display:block;margin-bottom:8px}
+.inp{font-family:var(--fb);font-size:17px;padding:13px 16px;border:2px solid var(--mint);border-radius:14px;width:100%;margin-top:8px}
+.inp:focus{outline:none;border-color:var(--indigo)}
+label{font-family:var(--fh);font-weight:600;color:var(--navy);font-size:15px}
+.hint{color:var(--muted);font-size:14px;margin-top:6px}
+/* EU card deck */
+.deck{display:grid;grid-template-columns:repeat(auto-fill,minmax(74px,1fr));gap:10px;margin-top:18px}
+.eucard{aspect-ratio:3/4;border-radius:12px;cursor:pointer;position:relative;border:none;padding:0;overflow:hidden;background:var(--eu);transition:transform .15s}
+.eucard:hover{transform:translateY(-4px) rotate(-2deg)}
+.eucard svg{width:100%;height:100%;display:block}
+.eucard.taken{opacity:.28;cursor:not-allowed;filter:grayscale(.4)}
+.eucard.taken::after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:26px;font-weight:800}
+/* role reveal */
+.role-card{background:linear-gradient(135deg,var(--indigo),var(--pink));color:#fff;border-radius:24px;padding:30px;text-align:center}
+.role-card .av{font-size:64px}
+.role-card h2{color:#fff;font-size:26px;margin:8px 0 4px}
+.role-card .story{font-size:17px;line-height:1.55;background:rgba(255,255,255,.14);border-radius:16px;padding:16px 18px;margin-top:14px}
+.role-card .tags{margin-top:12px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.role-card .tag{background:rgba(255,255,255,.22);border-radius:20px;padding:4px 12px;font-family:var(--fh);font-weight:500;font-size:13px}
+/* players grid */
+.plist{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:16px}
+.pchip{background:#fff;border:2px solid var(--mint);border-radius:16px;padding:10px 12px;display:flex;align-items:center;gap:8px;position:relative}
+.pchip .av{font-size:24px}.pchip .nm{font-family:var(--fh);font-weight:600;color:var(--navy);font-size:14px;line-height:1.1}
+.pchip .ro{font-size:11px;color:var(--muted)}
+.pchip .del{position:absolute;top:4px;right:6px;border:none;background:none;color:#e23b3b;cursor:pointer;font-size:14px;display:none}
+.fac .pchip .del{display:block}
+.pchip .sc{margin-left:auto;font-family:var(--fh);font-weight:700;color:var(--indigo)}
+/* question */
+.qbox{background:var(--navy);color:#fff;border-radius:22px;padding:26px;text-align:center;font-family:var(--fh);font-weight:600;font-size:clamp(20px,3.4vw,30px);line-height:1.25}
+.qmeta{text-align:center;color:var(--muted);font-family:var(--fh);margin:10px 0}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.opt{border:none;border-radius:18px;padding:22px 18px;color:#fff;font-family:var(--fb);font-weight:700;font-size:17px;cursor:pointer;text-align:left;transition:transform .12s;min-height:92px}
+.opt:hover{transform:translateY(-3px)}
+.opt:disabled{cursor:default}
+.opt.c0{background:#e2497d}.opt.c1{background:#2ba9a3}.opt.c2{background:#5a5ce0}.opt.c3{background:#e8a200}
+.opt .k{font-family:var(--fh);font-size:22px;margin-right:8px}
+.feedback{text-align:center;font-family:var(--fh);font-weight:700;font-size:26px;margin-top:18px}
+.feedback.plus{color:var(--teal-d)}.feedback.minus{color:#e23b3b}.feedback.zero{color:var(--muted)}
+.scorebar{text-align:center;font-family:var(--fh);font-weight:700;font-size:20px;color:var(--navy);margin-top:6px}
+/* leaderboard */
+.lb{margin-top:16px}
+.lbrow{display:flex;align-items:center;gap:12px;background:#fff;border:2px solid var(--mint);border-radius:16px;padding:12px 16px;margin-bottom:8px}
+.lbrow .rank{font-family:var(--fh);font-weight:700;font-size:22px;width:36px;color:var(--pink)}
+.lbrow .av{font-size:26px}.lbrow .nm{font-family:var(--fh);font-weight:600;color:var(--navy)}
+.lbrow .ro{font-size:12px;color:var(--muted)}
+.lbrow .sc{margin-left:auto;font-family:var(--fh);font-weight:800;font-size:22px;color:var(--indigo)}
+.lbrow.top1{border-color:var(--yellow);background:#fffdf3}
+.qkey{border:2px solid var(--mint);border-radius:16px;padding:14px;margin-bottom:10px}
+.qkey h4{margin:0 0 6px;color:var(--navy);font-family:var(--fh)}
+.qkey .o{font-size:14px;padding:4px 0}
+.qkey .o b{display:inline-block;width:46px}
+.s-plus{color:var(--teal-d);font-weight:700}.s-minus{color:#e23b3b;font-weight:700}.s-zero{color:var(--muted);font-weight:700}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
+.qr{border-radius:14px;border:2px solid var(--mint)}
+.note{background:var(--mint);border-radius:14px;padding:12px 16px;color:var(--navy);font-size:14px;margin-top:12px}
+@media(max-width:560px){.big-choices,.opts{grid-template-columns:1fr}}
+</style></head>
+<body>
+<div class="topbar"><span class="brand">Roots <b>&amp;</b> Roads</span><span style="font-family:var(--fh);color:var(--muted);font-weight:600">Walk in My Shoes</span><span class="codechip hidden" id="codechip"></span></div>
+<div class="wrap">
+
+<!-- LANDING -->
+<div id="s-landing">
+  <div class="card center">
+    <h1 style="font-size:30px">Walk in My Shoes</h1>
+    <p class="lead">A live role-play game about human rights, inclusion and the lives of Roma, migrant and refugee young people. Pick a face-down card, step into someone else&rsquo;s story, and decide what is fair.</p>
+    <div class="big-choices">
+      <button class="choice-tile" style="background:linear-gradient(135deg,var(--pink),#f58cbb)" onclick="goPlayer()"><span class="emoji">🎴</span>I&rsquo;m a Player</button>
+      <button class="choice-tile" style="background:linear-gradient(135deg,var(--indigo),#8183ee)" onclick="goFacilitator()"><span class="emoji">🎛️</span>I&rsquo;m a Facilitator</button>
+    </div>
+    <div class="note">Facilitator = the host. Create a game, share the code, start the questions and see everyone&rsquo;s results. Players join with the code.</div>
+  </div>
+</div>
+
+<!-- PLAYER JOIN -->
+<div id="s-pjoin" class="hidden">
+  <div class="card">
+    <h2 style="font-size:24px">Join the game</h2>
+    <p class="lead">Ask the facilitator for the game code.</p>
+    <label>Game code</label><input class="inp" id="pcode" maxlength="6" placeholder="e.g. ABCD" style="text-transform:uppercase;letter-spacing:4px;font-family:var(--fh);font-weight:700">
+    <label style="display:block;margin-top:14px">Your name</label><input class="inp" id="pname" maxlength="24" placeholder="Your first name">
+    <div class="row"><button class="btn pink" onclick="joinPlayer()">Join &amp; pick a card →</button><button class="btn ghost" onclick="home()">Back</button></div>
+    <div id="pjoin-msg" class="hint"></div>
+  </div>
+</div>
+
+<!-- PLAYER PICK CARD -->
+<div id="s-pick" class="hidden">
+  <div class="card">
+    <h2 style="font-size:24px">Pick a face-down card 🎴</h2>
+    <p class="lead">Each card hides a different person&rsquo;s story. Choose one — you cannot change it.</p>
+    <div class="deck" id="deck"></div>
+  </div>
+</div>
+
+<!-- PLAYER ROLE + LOBBY/PLAY -->
+<div id="s-play" class="hidden"></div>
+
+<!-- FACILITATOR -->
+<div id="s-fac" class="hidden fac"></div>
+
+</div>
+<script>
+const SB_URL='https://nwbvlyempbzzbjdjvjuq.supabase.co';
+const SB_KEY='sb_publishable_R03HEsUOB96R33cIpI3uMA_8S5dogJs';
+const H={apikey:SB_KEY,Authorization:'Bearer '+SB_KEY};
+const JH={...H,'Content-Type':'application/json'};
+
+/* ---------------- ROLES (50) ---------------- */
+const ROLES=[
+['🧒','12-year-old Syrian refugee','Arrived six months ago after a long journey. Still waiting for a school place and misses his old friends and his cat.',['refugee','child']],
+['👩','39-year-old single mother','Works nights as a cleaner to raise two kids alone. Rarely has time or money for herself.',['low income','carer']],
+['🧑','18-year-old Roma young man','Just finished school and is sending out his first job applications. Worries employers judge his surname.',['Roma','job-seeker']],
+['👨‍⚕️','Doctor from India in France','A trained doctor who just moved to France. His diploma is not recognised yet, so he drives for a delivery app.',['migrant','professional']],
+['👧','16-year-old Roma girl','Lives in a neighbourhood far from the town centre. Dreams of becoming a nurse.',['Roma','youth']],
+['👩‍🏫','25-year-old Afghan woman','Was a teacher back home. Now an asylum seeker, learning a new language from zero.',['refugee','woman']],
+['👴','70-year-old retired man','Has lived in the same town all his life. Collects his pension and reads the local paper.',['local','senior']],
+['🧑‍🎓','22-year-old local student','Studies at the university, lives with supportive parents, has a part-time job.',['local','student']],
+['🧒','14-year-old unaccompanied minor','Travelled alone from Somalia. Lives in a care home and hopes to find family.',['refugee','alone']],
+['👷','45-year-old Ukrainian refugee','An engineer under temporary protection. Grateful but frustrated he cannot work in his field.',['refugee','professional']],
+['🧑‍🤝‍🧑','30-year-old gay man','From a small town where he hides who he is at work to stay safe.',['LGBTQ+','local']],
+['🧑‍🦽','28-year-old wheelchair user','A graphic designer who often finds buildings and buses impossible to enter.',['disability','professional']],
+['👵','50-year-old Roma grandmother','Has no ID documents because her birth was never registered. Cannot access many services.',['Roma','stateless']],
+['🧑','19-year-old Turkish-German','Born and raised in Germany, yet strangers still ask where he is "really" from.',['migrant heritage','youth']],
+['🧑‍🌾','35-year-old undocumented worker','Picks fruit on a farm with no papers and no contract. Afraid to complain.',['undocumented','worker']],
+['🧏','17-year-old deaf student','Bright and curious, but most lessons have no captions or interpreter.',['disability','student']],
+['👨‍💼','40-year-old business owner','Runs a local company, employs ten people and sits on the town council.',['local','privileged']],
+['👩🏿','23-year-old Black woman','Born here, proud of it, tired of being complimented on her "good" language.',['racialised','local']],
+['👧','8-year-old Roma girl','Loves school but was placed in a separate class away from the other children.',['Roma','child']],
+['👨‍🌾','60-year-old village farmer','Works the land, values tradition, is unsure about the newcomers in the region.',['local','rural']],
+['🏳️‍⚧️','27-year-old trans woman','A nurse who faces stares and intrusive questions, but loves caring for patients.',['LGBTQ+','professional']],
+['🧕','33-year-old woman in a hijab','Highly qualified, but keeps being turned down for jobs after interviews.',['Muslim','job-seeker']],
+['🧑','15-year-old autistic boy','Needs routine and quiet. Loud classrooms and sudden changes overwhelm him.',['disability','youth']],
+['👨‍🔧','48-year-old factory worker','Lost his job when the line was automated. Feels left behind and unheard.',['local','unemployed']],
+['🧑🏿','21-year-old Eritrean asylum seeker','Crossed the sea in a small boat. Still has nightmares, but keeps hoping.',['refugee','youth']],
+['👩‍⚖️','29-year-old lawyer','Well connected, knows her rights and how to use them.',['local','privileged']],
+['🧒','13-year-old working Roma boy','Helps his family earn money instead of going to school every day.',['Roma','child']],
+['👵','55-year-old woman','Reads and writes with difficulty, so forms and websites are a daily struggle.',['low literacy','local']],
+['🧑🏿‍🎓','24-year-old student from Nigeria','Here on a visa that must be renewed every year. One mistake could end his studies.',['international','student']],
+['👨','36-year-old divorced father','Shares custody of his kids and is rebuilding his life on a tight budget.',['local','carer']],
+['👧','16-year-old refugee girl','Dreams of being an engineer and studies late every night in a crowded room.',['refugee','youth']],
+['🧑‍💼','42-year-old shop owner','His shop window was smashed with a racist message. Police were slow to act.',['migrant','victim']],
+['🧑‍🏭','20-year-old apprentice','A local with a stable family and a clear path into a trade.',['local','youth']],
+['👩','31-year-old fleeing violence','Left an abusive home with her child and is starting again in a shelter.',['survivor','carer']],
+['👩‍🎓','18-year-old Roma student','The first in her family to reach university. Carries everyone&rsquo;s hopes.',['Roma','student']],
+['💊','26-year-old Syrian pharmacist','Ran a pharmacy back home. Here her qualifications count for nothing yet.',['refugee','professional']],
+['🧒','11-year-old child translator','Translates letters and appointments for his migrant parents who do not speak the language.',['migrant','child']],
+['👴','65-year-old pensioner','Lives alone and struggles with the online-only services everyone now expects.',['senior','digitally excluded']],
+['🧑','34-year-old homeless man','A former construction worker who lost his home after an injury.',['homeless','local']],
+['🏳️‍🌈','17-year-old LGBTQ+ youth','Came out and was rejected by family. Sleeping on a friend&rsquo;s sofa for now.',['LGBTQ+','youth']],
+['✊','22-year-old Roma activist','Runs a youth club in her community and fights for equal schools.',['Roma','activist']],
+['👩‍👦','38-year-old mother of a disabled child','Spends her days battling waitlists and closed doors to get her son support.',['carer','advocate']],
+['🧑','19-year-old unemployed local','Left school early, cannot find work, and feels nobody is listening.',['local','unemployed']],
+['🧑‍⚕️','28-year-old volunteer doctor','Spends weekends giving free check-ups at a refugee camp.',['local','ally']],
+['🧒','16-year-old migrant boy','Bullied at school for his accent, he has started staying quiet in class.',['migrant','youth']],
+['👨‍🏫','44-year-old teacher','Teaches a classroom of 25 children who speak eight different home languages.',['local','educator']],
+['🧑‍🍳','30-year-old refugee chef','Opened a tiny street-food stall and is slowly winning over the neighbourhood.',['refugee','entrepreneur']],
+['👧','14-year-old Traveller girl','From a Traveller community; her family moves often, so school keeps restarting.',['Traveller','youth']],
+['🧓','52-year-old man with a cane','Uses a hearing aid and a walking cane; crowded, noisy places exhaust him.',['disability','senior']],
+['📰','25-year-old journalist','Reports on migration and tries to tell the human stories behind the headlines.',['local','media']],
+];
+
+/* ---------------- QUESTIONS (12) ---------------- */
+/* each option: [text, score] score +1 / 0 / -1 */
+const QUESTIONS=[
+['A new student who speaks no local language joins your class. You…',[['Sit with them and help using gestures and a translation app',1],['Leave it to the teacher, not your job',0],['Mimic their accent with friends',-1]]],
+['A flat advert says &ldquo;no Roma, no migrants&rdquo;. This is…',[['Illegal discrimination — report it',1],['The owner&rsquo;s right, it&rsquo;s their flat',-1],['Not my business',0]]],
+['Your team needs one more player; a refugee teen wants in but has no boots. You…',[['Lend spare boots and welcome them',1],['Say the team is full',-1],['Shrug, not your problem',0]]],
+['A colleague is mocked for wearing a hijab. You…',[['Speak up and support her',1],['Stay silent to avoid trouble',0],['Join the joke',-1]]],
+['A friend shares &ldquo;migrants take our jobs&rdquo;. You…',[['Reply with facts and a real story',1],['Scroll past',0],['Like and reshare it',-1]]],
+['Your town opens a shelter for refugees. You…',[['Volunteer to help newcomers settle in',1],['Sign a petition against it',-1],['Do nothing',0]]],
+['A classmate uses a slur about Roma people. You…',[['Tell them it&rsquo;s hurtful, and why',1],['Pretend you didn&rsquo;t hear',0],['Laugh along',-1]]],
+['A qualified doctor from abroad cannot get their diploma recognised. A fair system…',[['Offers a fast, fair recognition path',1],['Makes them restart from zero',-1],['Leaves it as it is',0]]],
+['Someone is refused entry to a club because of their skin colour. You…',[['Challenge it and record it as evidence',1],['Walk away',0],['Agree with the bouncer',-1]]],
+['A deaf student cannot follow the lesson. The inclusive choice is…',[['Provide captions or an interpreter',1],['Tell them to try harder',-1],['Change nothing',0]]],
+['Young people and non-citizen residents want a say in the town. The participatory choice…',[['A youth council open to all residents',1],['Only citizens over 30 decide',-1],['Keep things as they are',0]]],
+['Roma children are placed in a &ldquo;special&rdquo; school although they have no disability. This is…',[['Segregation — they belong in mainstream school',1],['Probably for the best',-1],['Not my concern',0]]],
+];
+
+/* ---------------- Supabase helpers ---------------- */
+async function sbUpsert(key,type,value){try{const r=await fetch(SB_URL+'/rest/v1/content?on_conflict=key',{method:'POST',headers:{...JH,'Prefer':'resolution=merge-duplicates,return=minimal'},body:JSON.stringify({key,type,value:JSON.stringify(value),updated_at:new Date().toISOString()})});return r.ok;}catch(e){return false;}}
+async function sbList(prefix){try{const r=await fetch(SB_URL+'/rest/v1/content?select=key,value&key=like.'+encodeURIComponent(prefix)+'*',{headers:H});if(!r.ok)return[];const rows=await r.json();return rows.map(x=>{let v=null;try{v=JSON.parse(x.value);}catch(e){}return{key:x.key,value:v};});}catch(e){return[];}}
+async function sbDel(key){try{await fetch(SB_URL+'/rest/v1/content?key=eq.'+encodeURIComponent(key),{method:'DELETE',headers:H});}catch(e){}}
+
+/* ---------------- state ---------------- */
+let CODE=null, PID=null, isFac=false, poll=null;
+const $=id=>document.getElementById(id);
+function show(id){['s-landing','s-pjoin','s-pick','s-play','s-fac'].forEach(s=>$(s).classList.add('hidden'));$(id).classList.remove('hidden');}
+function home(){if(poll)clearInterval(poll);location.hash='';show('s-landing');$('codechip').classList.add('hidden');}
+function code4(){let s='';for(let i=0;i<4;i++)s+='ABCDEFGHJKLMNPQRSTUVWXYZ'[Math.floor(Math.random()*24)];return s;}
+function euFlag(){let st='';for(let i=0;i<12;i++){const a=i*30*Math.PI/180;const x=50+32*Math.sin(a),y=50-32*Math.cos(a);st+='<polygon points="'+star(x,y,5.4)+'" fill="#FFCC00"/>';}return '<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#003399"/>'+st+'</svg>';}
+function star(cx,cy,r){let p=[];for(let i=0;i<5;i++){const a=(i*72-90)*Math.PI/180;p.push((cx+r*Math.cos(a)).toFixed(1)+','+(cy+r*Math.sin(a)).toFixed(1));const a2=((i*72)+36-90)*Math.PI/180;p.push((cx+r*0.4*Math.cos(a2)).toFixed(1)+','+(cy+r*0.4*Math.sin(a2)).toFixed(1));}return p.join(' ');}
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+
+/* ---------------- navigation ---------------- */
+function goPlayer(){show('s-pjoin');const h=(location.hash||'').replace('#','').toUpperCase();if(/^[A-Z]{4}$/.test(h))$('pcode').value=h;}
+function home0(){home();}
+function goFacilitator(){isFac=true;createGame();}
+
+/* ---------------- FACILITATOR ---------------- */
+async function createGame(){CODE=code4();await sbUpsert('rrg_'+CODE+'_meta','rrgmeta',{phase:'lobby',q:-1,ts:Date.now()});$('codechip').textContent=CODE;$('codechip').classList.remove('hidden');show('s-fac');startPoll();}
+let FAC_SHOWKEY=false;
+function playerLink(){return location.origin+location.pathname+'#'+CODE;}
+async function facTick(){
+  const meta=(await sbList('rrg_'+CODE+'_meta'))[0]; const players=(await sbList('rrg_'+CODE+'_p_')).map(r=>r.value).filter(Boolean);
+  renderFac(meta?meta.value:{phase:'lobby',q:-1},players);
+}
+function renderFac(m,players){
+  players.sort((a,b)=>(b.score||0)-(a.score||0));
+  let h='';
+  const link=playerLink();
+  if(m.phase==='lobby'){
+    h+='<div class="card center"><h2 style="font-size:26px">Game code</h2><div class="codechip" style="font-size:34px;margin:10px auto;display:inline-block">'+CODE+'</div>'
+     +'<p class="lead">Players open the link and the code fills in automatically.</p>'
+     +'<div class="row" style="justify-content:center"><img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data='+encodeURIComponent(link)+'" alt="QR"><div style="text-align:left"><div class="hint">Share this link:</div><div style="font-family:var(--fh);color:var(--indigo);word-break:break-all">'+link+'</div><button class="btn ghost" style="margin-top:8px" onclick="navigator.clipboard&&navigator.clipboard.writeText(\''+link+'\');this.textContent=\'Copied ✓\'">Copy link</button></div></div>'
+     +'<div class="row" style="justify-content:center;margin-top:16px"><button class="btn teal" '+(players.length?'':'disabled')+' onclick="facStart()">▶ Start game ('+players.length+' joined)</button><button class="btn ghost" onclick="facKey()">'+(FAC_SHOWKEY?'Hide':'See')+' questions</button><button class="btn red" onclick="facEnd()">End</button></div></div>';
+    h+=facPlayers(players);
+    if(FAC_SHOWKEY)h+=keyPanel();
+  } else if(m.phase==='question'||m.phase==='reveal'){
+    const q=QUESTIONS[m.q];const answered=players.filter(p=>p.ans&&p.ans[m.q]!==undefined).length;
+    h+='<div class="card"><div class="qmeta">Question '+(m.q+1)+' / '+QUESTIONS.length+'</div><div class="qbox">'+q[0]+'</div>';
+    h+='<div class="opts">'+q[1].map((o,i)=>{const dist=players.filter(p=>p.ans&&p.ans[m.q]===i).length;const sc=o[1]>0?'+1':(o[1]<0?'-1':'0');return '<div class="opt c'+i+'"><span class="k">'+'ABCD'[i]+'</span>'+o[0]+(m.phase==='reveal'?' <b style="float:right">'+sc+' · '+dist+'</b>':'')+'</div>';}).join('')+'</div>';
+    h+='<div class="qmeta">'+(m.phase==='question'?('Answered: '+answered+' / '+players.length):'Results shown to players')+'</div>';
+    h+='<div class="row" style="justify-content:center">'
+      +(m.phase==='question'?'<button class="btn yellow" onclick="facReveal()">Reveal answers</button>':(m.q<QUESTIONS.length-1?'<button class="btn teal" onclick="facNext()">Next question →</button>':'<button class="btn pink" onclick="facEndGame()">See final results 🏆</button>'))
+      +'<button class="btn ghost" onclick="facKey()">'+(FAC_SHOWKEY?'Hide':'See')+' key</button><button class="btn red" onclick="facEnd()">End</button></div></div>';
+    h+=facScores(players);
+    if(FAC_SHOWKEY)h+=keyPanel();
+  } else if(m.phase==='ended'){
+    h+='<div class="card center"><h2 style="font-size:28px">🏆 Final results</h2><p class="lead">Thank you for walking in someone else&rsquo;s shoes.</p></div>';
+    h+=leaderboard(players);
+    h+='<div class="row" style="justify-content:center"><button class="btn ghost" onclick="home()">New game</button></div>';
+  }
+  $('s-fac').innerHTML=h;
+}
+function facPlayers(players){if(!players.length)return '<div class="card"><p class="lead">Waiting for players to join and pick a card…</p></div>';
+  return '<div class="card"><h3 style="font-size:18px">Players &amp; roles ('+players.length+')</h3><div class="plist">'+players.map(p=>'<div class="pchip"><span class="av">'+(p.av||'🎭')+'</span><div><div class="nm">'+esc(p.name)+'</div><div class="ro">'+esc(p.role||'picking…')+'</div></div><button class="del" title="Remove" onclick="facDel(\''+p.pid+'\')">✖</button></div>').join('')+'</div></div>';}
+function facScores(players){return '<div class="card"><h3 style="font-size:18px">Live scores</h3><div class="plist">'+players.map(p=>'<div class="pchip"><span class="av">'+(p.av||'🎭')+'</span><div><div class="nm">'+esc(p.name)+'</div><div class="ro">'+esc(p.role||'')+'</div></div><span class="sc">'+(p.score||0)+'</span><button class="del" onclick="facDel(\''+p.pid+'\')">✖</button></div>').join('')+'</div></div>';}
+function leaderboard(players){if(!players.length)return '<div class="card"><p class="lead">No players.</p></div>';
+  return '<div class="lb">'+players.map((p,i)=>'<div class="lbrow'+(i===0?' top1':'')+'"><span class="rank">'+(i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1))+'</span><span class="av">'+(p.av||'🎭')+'</span><div><div class="nm">'+esc(p.name)+'</div><div class="ro">'+esc(p.role||'')+'</div></div><span class="sc">'+(p.score||0)+'</span></div>').join('')+'</div>';}
+function keyPanel(){return '<div class="card"><h3 style="font-size:18px">Answer key (facilitator only)</h3>'+QUESTIONS.map((q,qi)=>'<div class="qkey"><h4>'+(qi+1)+'. '+q[0]+'</h4>'+q[1].map((o,i)=>{const c=o[1]>0?'s-plus':(o[1]<0?'s-minus':'s-zero');const s=o[1]>0?'+1':(o[1]<0?'-1':'0');return '<div class="o"><b class="'+c+'">'+s+'</b> '+o[0]+'</div>';}).join('')+'</div>').join('')+'</div>';}
+async function facKey(){FAC_SHOWKEY=!FAC_SHOWKEY;facTick();}
+async function setPhase(phase,q){await sbUpsert('rrg_'+CODE+'_meta','rrgmeta',{phase,q,ts:Date.now()});facTick();}
+async function facStart(){await setPhase('question',0);}
+async function facReveal(){const m=(await sbList('rrg_'+CODE+'_meta'))[0].value;await setPhase('reveal',m.q);}
+async function facNext(){const m=(await sbList('rrg_'+CODE+'_meta'))[0].value;await setPhase('question',m.q+1);}
+async function facEndGame(){await setPhase('ended',-1);}
+async function facEnd(){if(!confirm('End this game for everyone?'))return;await setPhase('ended',-1);}
+async function facDel(pid){if(!confirm('Remove this player?'))return;await sbDel('rrg_'+CODE+'_p_'+pid);facTick();}
+
+/* ---------------- PLAYER ---------------- */
+let MY={};
+async function joinPlayer(){
+  const c=$('pcode').value.trim().toUpperCase();const n=$('pname').value.trim();
+  if(!/^[A-Z]{4}$/.test(c)){$('pjoin-msg').textContent='Enter the 4-letter code.';return;}
+  if(!n){$('pjoin-msg').textContent='Enter your name.';return;}
+  const meta=(await sbList('rrg_'+c+'_meta'))[0];
+  if(!meta){$('pjoin-msg').textContent='No game with that code. Check with the facilitator.';return;}
+  CODE=c;PID=Math.random().toString(36).slice(2,9);MY={pid:PID,name:n,score:0,ans:{},card:null,role:null,av:null};
+  await sbUpsert('rrg_'+CODE+'_p_'+PID,'rrgp',MY);
+  $('codechip').textContent=CODE;$('codechip').classList.remove('hidden');
+  await renderDeck();show('s-pick');
+}
+async function renderDeck(){
+  const players=(await sbList('rrg_'+CODE+'_p_')).map(r=>r.value).filter(Boolean);
+  const taken=new Set(players.filter(p=>p.card!==null&&p.card!==undefined&&p.pid!==PID).map(p=>p.card));
+  let h='';for(let i=0;i<ROLES.length;i++){const t=taken.has(i);h+='<button class="eucard'+(t?' taken':'')+'" '+(t?'disabled':'onclick="pickCard('+i+')"')+'>'+euFlag()+'</button>';}
+  $('deck').innerHTML=h;
+}
+async function pickCard(i){
+  const players=(await sbList('rrg_'+CODE+'_p_')).map(r=>r.value).filter(Boolean);
+  const taken=new Set(players.filter(p=>p.pid!==PID).map(p=>p.card));
+  if(taken.has(i)){await renderDeck();alert('That card was just taken — pick another.');return;}
+  const r=ROLES[i];MY.card=i;MY.av=r[0];MY.role=r[1];MY.story=r[2];MY.tags=r[3];
+  await sbUpsert('rrg_'+CODE+'_p_'+PID,'rrgp',MY);
+  show('s-play');startPoll();
+}
+async function playerTick(){
+  const meta=(await sbList('rrg_'+CODE+'_meta'))[0];
+  const mine=(await sbList('rrg_'+CODE+'_p_'+PID))[0];
+  if(!mine){if(poll)clearInterval(poll);alert('You were removed from the game.');home();return;}
+  MY=mine.value;renderPlayer(meta?meta.value:{phase:'lobby',q:-1});
+}
+function roleCardHtml(){const r=ROLES[MY.card];return '<div class="role-card"><div class="av">'+r[0]+'</div><h2>'+r[1]+'</h2><div class="story">'+r[2]+'</div><div class="tags">'+r[3].map(t=>'<span class="tag">'+t+'</span>').join('')+'</div></div>';}
+function renderPlayer(m){
+  let h='';
+  if(m.phase==='lobby'){
+    h=roleCardHtml()+'<div class="card center" style="margin-top:14px"><h3 style="font-size:20px">You are in! 🎴</h3><p class="lead">Read your story and get ready to answer as this person. The facilitator will start soon.</p><div class="scorebar">Hi '+esc(MY.name)+' · score '+(MY.score||0)+'</div></div>';
+  } else if(m.phase==='question'){
+    const q=QUESTIONS[m.q];const answered=MY.ans&&MY.ans[m.q]!==undefined;
+    h='<div class="card"><div class="qmeta">You are: '+MY.av+' '+esc(MY.role)+'</div><div class="qbox">'+q[0]+'</div>';
+    if(!answered){h+='<p class="qmeta">Answer as your character. Choose what you would do.</p><div class="opts">'+q[1].map((o,i)=>'<button class="opt c'+i+'" onclick="answer('+m.q+','+i+')"><span class="k">'+'ABCD'[i]+'</span>'+o[0]+'</button>').join('')+'</div>';}
+    else{const ch=MY.ans[m.q];const sc=q[1][ch][1];h+='<div class="feedback '+(sc>0?'plus':sc<0?'minus':'zero')+'">You chose '+'ABCD'[ch]+' · '+(sc>0?'+1 step forward':sc<0?'-1 step back':'you stay')+'</div><div class="scorebar">Your score: '+(MY.score||0)+'</div><p class="qmeta">Waiting for the others…</p>';}
+    h+='</div>';
+  } else if(m.phase==='reveal'){
+    const q=QUESTIONS[m.q];const ch=MY.ans&&MY.ans[m.q];
+    h='<div class="card"><div class="qmeta">Round '+(m.q+1)+' results</div><div class="qbox" style="font-size:20px">'+q[0]+'</div><div class="opts">'+q[1].map((o,i)=>{const sc=o[1]>0?'+1':o[1]<0?'-1':'0';const mine=(ch===i)?' style="outline:4px solid #fff;outline-offset:-4px"':'';return '<div class="opt c'+i+'"'+mine+'><span class="k">'+'ABCD'[i]+'</span>'+o[0]+' <b style="float:right">'+sc+'</b></div>';}).join('')+'</div><div class="scorebar" style="margin-top:14px">Your score: '+(MY.score||0)+'</div><p class="qmeta">Waiting for the next question…</p></div>';
+  } else if(m.phase==='ended'){
+    (async()=>{const players=(await sbList('rrg_'+CODE+'_p_')).map(r=>r.value).filter(Boolean).sort((a,b)=>(b.score||0)-(a.score||0));
+      const rank=players.findIndex(p=>p.pid===PID)+1;
+      $('s-play').innerHTML='<div class="card center"><h2 style="font-size:28px">🏆 Final results</h2><div class="scorebar">You (&thinsp;'+MY.av+' '+esc(MY.role)+'&thinsp;) finished #'+rank+' with '+(MY.score||0)+' points</div></div>'+leaderboard(players)+'<div class="row" style="justify-content:center"><button class="btn ghost" onclick="home()">Leave</button></div>';})();
+    return;
+  }
+  $('s-play').innerHTML=h;
+}
+async function answer(qi,ch){
+  if(MY.ans&&MY.ans[qi]!==undefined)return;
+  MY.ans=MY.ans||{};MY.ans[qi]=ch;MY.score=(MY.score||0)+QUESTIONS[qi][1][ch][1];
+  await sbUpsert('rrg_'+CODE+'_p_'+PID,'rrgp',MY);
+  renderPlayer({phase:'question',q:qi});
+}
+
+/* ---------------- polling ---------------- */
+function startPoll(){if(poll)clearInterval(poll);const fn=isFac?facTick:playerTick;fn();poll=setInterval(fn,1400);}
+window.addEventListener('DOMContentLoaded',()=>{const h=(location.hash||'').replace('#','').toUpperCase();if(/^[A-Z]{4}$/.test(h))goPlayer();});
+</script>
+</body></html>
